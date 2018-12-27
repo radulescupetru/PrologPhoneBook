@@ -1,0 +1,5 @@
+person("Radulescu","0432","petru","Teo")
+person("Petru","12312","petrus","Teo")
+agenda("Teo","213232")
+agenda("Teo","213232")
+event("Edited",date(30,10,2019,h(20,30)),"Teo")
