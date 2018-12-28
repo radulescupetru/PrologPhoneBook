@@ -24,6 +24,7 @@ predicates
 	addNewContact(string)
 	deleteContact(string)
 	editContact(string)
+	findContact(string)
 	displayContacts(string)
 
 	addNewEvent(string)
@@ -125,6 +126,7 @@ clauses
 		write("1.Insert contact"),nl,
 		write("2.Delete contact"),nl,
 		write("3.Edit contact"),nl,
+		write("f.Find contact"),nl,
 		write("4.Display contacts"),nl,
 		write("-----EVENTS-----"),nl,
 		write("5.Insert event"),nl,
@@ -155,6 +157,11 @@ clauses
 	%% Edits a contact from user's agenda
 	personalAgendaOptionPicker('3',FullName):-
 		editContact(FullName).
+
+	%% Personal agenda picker function
+	%% Finds a contact and displays it's information.
+	personalAgendaOptionPicker('f',FullName):-
+		findContact(FullName).
 
 	%% Personal agenda picker function
 	%% Displays all contacts for a user.
@@ -264,6 +271,24 @@ clauses
 	%% Update contact failsafe function in case the person does not exist or the new name is taken.
 	editContact(FullName):-
 		writeAndWaitForInput("Something went wrong!Exiting to main menu..."),
+		personalAgendaMainMenu(FullName).
+
+	%% Find contact function implementation
+	findContact(FullName):-
+		clearwindow(),
+		makewindow(1,6,7,"Update contact",6,15,15,50),
+		write("Full name:"),
+		readln(Name),nl,
+		person(Name,Phone,Email,FullName),
+		write("Phone: ",Phone),nl,
+		write("Email: ",Email),nl,
+		writeAndWaitForInput("Back to main menu..."),
+		personalAgendaMainMenu(FullName).
+
+
+	%% Find contact failsafe function in case the person you're looking for does not exist.
+	findContact(FullName):-
+		writeAndWaitForInput("The user you searched for does not exist. Exiting to main menu..."),
 		personalAgendaMainMenu(FullName).
 
 	%% Display a list of contacts for user
